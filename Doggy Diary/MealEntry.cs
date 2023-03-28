@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace Doggy_Diary
 {
-    public class MealEntry : Entry
-    {
-        public bool Ate { get; set; }
+    //public class MealEntry : Entry
+    //{
+    //    public bool Ate { get; set; }
 
 
-        public MealEntry(bool Ate) { }
-        //public MealEntry(DateTime timestamp, bool ate)
-        //{
-        //    Timestamp = timestamp;
-        //    Ate = ate;
-        //}
+    //    public MealEntry(bool Ate) { }
+    //public MealEntry(DateTime timestamp, bool ate)
+    //{
+    //    Timestamp = timestamp;
+    //    Ate = ate;
+    //}
 
-    }
 }

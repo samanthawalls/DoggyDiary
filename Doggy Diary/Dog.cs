@@ -11,12 +11,13 @@ namespace Doggy_Diary
     public class Dog
     {
         public string Name { get; set; }
-
+        public List<Entry> Entries { get; set; }
 
 
         public Dog(string name) 
         {
-            this.Name = name;
+            Name = name;
+            Entries = new List<Entry>();
         }    
 
        

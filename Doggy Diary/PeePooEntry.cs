@@ -8,17 +8,42 @@ namespace Doggy_Diary
 {
     public class PeePooEntry : Entry
     {
-        public bool Pee { get; set; }
-        public bool Poo { get; set; }
+        
+        public bool IsPee { get; set; }
+        public bool IsPoo { get; set; }
+        
 
-        public PeePooEntry(bool Pee, bool Poo) { }
-        // public PeePooEntry(DateTime timestamp, bool pee, bool poo) 
-        //{
-        //  Timestamp = timestamp;
-        //Pee = pee;
-        // Poo = poo;
-        // }
+        public PeePooEntry(DateTime entryDateTime, Dog dog, bool isPee, bool isPoo) : base(entryDateTime, dog)
+        {
+            IsPee = isPee;
+            IsPoo = isPoo;
+            SavePeePooEntriesToFile();
+        }
 
-
+        public override void Display()
+        {
+            Console.WriteLine($"Entry for {Dog.Name} on {EntryDateTime.ToShortDateString()} @{EntryDateTime.ToShortTimeString()}");
+            if (IsPee && IsPoo)
+            {
+                Console.WriteLine(" - Pee & Poo Recorded!");
+            }
+            else if (IsPee)
+            {
+                Console.WriteLine(" - Pee Recorded!");
+            }
+            else if (IsPoo)
+            {
+                Console.WriteLine(" - Poo Recorded!");
+            }
+        }
+        private void SavePeePooEntriesToFile()
+        {
+            string fileName = "pee_poo_entries.txt";
+            using (StreamWriter sr = new StreamWriter (fileName, true)) 
+            {
+                string entryString = $"{EntryDateTime.ToShortDateString()} {EntryDateTime.ToShortTimeString()} - {Dog.Name} - {(IsPee ? "Pee" : "")}{(IsPoo ? "Poo" : "")}";
+                sr.WriteLine(entryString);
+            }
+        }
     }
 }
