@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,16 +43,51 @@ namespace Doggy_Diary
             Dog selectedDog = dogList.Dogs[dogIndex - 1];
 
             Console.WriteLine($"Did {selectedDog.Name} pee? (Y/N)");
-            bool isPee = Console.ReadLine().ToUpper() == "Y";
+            bool isPee = false;
+            while (true)
+            {
+                string input = Console.ReadLine().ToUpper();
+                if (input == "Y")
+                {
+                    isPee = true;
+                    break;
+                }
+                else if (input == "N")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input. Please Enter Y or N.");
+                }
+            }
+          
 
             Console.WriteLine($"Did {selectedDog.Name} poo? (Y/N)");
-            bool isPoo = Console.ReadLine().ToUpper() == "Y";
+            bool isPoo = false;
+            while (true)
+            {
+                string input = Console.ReadLine().ToUpper();
+                if (input == "Y")
+                {
+                    isPoo = true;
+                    break;
+                }
+                else if (input == "N")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input. Please Enter Y or N.");
+                }
+            }
 
             DateTime now = DateTime.Now;
             PeePooEntry peePooEntry = new PeePooEntry(now, selectedDog, isPee, isPoo);
             selectedDog.Entries.Add(peePooEntry);
             dogList.SaveDogs();
-            peePooEntry.Display();
+            peePooEntry.DisplayPeePooEntry();
 
             
             Console.WriteLine("\r\n Press any key to return to main menu...");

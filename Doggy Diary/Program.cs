@@ -33,7 +33,7 @@ class Program
                     EntryManager.ViewAllEntries();
                     break;
                 case "3":
-                    dogList.AddOrRemoveDog();
+                    dogList.AddOrRemoveDogSelection();
                     break;
                 case "4":
                     Environment.Exit(0);

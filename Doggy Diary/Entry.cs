@@ -17,6 +17,6 @@ namespace Doggy_Diary
             EntryDateTime= entryDateTime;
             Dog = dog;
         }
-        public abstract void Display();
+        public abstract void DisplayPeePooEntry();
     }
 }

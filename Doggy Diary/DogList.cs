@@ -80,7 +80,7 @@ namespace Doggy_Diary
             SaveDogs();
         }
 
-        public void AddOrRemoveDog()
+        public void AddOrRemoveDogSelection()
         {
             Console.Clear();
             Console.WriteLine("Do you want to add or remove a dog? Enter \"A\" to add or \"R\" to remove:");

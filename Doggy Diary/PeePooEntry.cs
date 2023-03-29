@@ -20,9 +20,9 @@ namespace Doggy_Diary
             SavePeePooEntriesToFile();
         }
 
-        public override void Display()
+        public override void DisplayPeePooEntry()
         {
-            Console.WriteLine($"Entry for {Dog.Name} on {EntryDateTime.ToShortDateString()} @{EntryDateTime.ToShortTimeString()}");
+            Console.WriteLine($"Entry for {Dog.Name} on {EntryDateTime.ToShortDateString()} @ {EntryDateTime.ToShortTimeString()}");
             if (IsPee && IsPoo)
             {
                 Console.WriteLine(" - Pee & Poo Recorded!");
