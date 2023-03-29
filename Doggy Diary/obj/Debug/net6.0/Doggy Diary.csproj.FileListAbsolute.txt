@@ -1,15 +1,2 @@
 C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Doggy Diary.exe
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Doggy Diary.deps.json
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Doggy Diary.runtimeconfig.json
 C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Doggy Diary.dll
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Doggy Diary.pdb
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.csproj.AssemblyReference.cache
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.AssemblyInfoInputs.cache
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.AssemblyInfo.cs
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.csproj.CoreCompileInputs.cache
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.dll
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\refint\Doggy Diary.dll
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.pdb
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.genruntimeconfig.cache
-C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\ref\Doggy Diary.dll
