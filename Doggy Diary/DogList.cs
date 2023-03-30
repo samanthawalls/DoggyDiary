@@ -50,34 +50,48 @@ namespace Doggy_Diary
         public void RemoveDog()
         {
             Console.Clear();
-            Console.WriteLine("Select a dog to remove by entering its index number:");
+            Dog selectedDog = SelectDog();
+
+            if (selectedDog != null)
+            {
+                Dogs.Remove(selectedDog);
+                Console.Clear();
+                Console.WriteLine($"Dog \"{selectedDog.Name}\"u Removed\n");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+                Console.Clear();
+
+                PrintAllDogs();
+                SaveDogs();
+            }
+        }
+
+        public Dog SelectDog()
+        {
+            Console.WriteLine("Select a dog (or enter 0 to go back to main menu):");
+
             for (int i = 0; i < Dogs.Count; i++)
             {
-                Console.WriteLine($"{i}: {Dogs[i].Name}");
+                Console.WriteLine($"[{i + 1}] {Dogs[i].Name}");
             }
 
-            int index;
+            int dogIndex;
             while (true)
             {
-                if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index < Dogs.Count)
+                if (int.TryParse(Console.ReadLine(), out dogIndex))
                 {
-                    break;
+                    if (dogIndex == 0)
+                    {
+                        return null;
+                    }
+                    else if (dogIndex >= 1 && dogIndex <= Dogs.Count)
+                    {
+                        break;
+                    }
                 }
-                Console.WriteLine("Invalid input. Please enter a valid index number.");
+                Console.WriteLine("Invalid selection. Please try again.");
             }
-
-            string name = Dogs[index].Name;
-            Dogs.RemoveAt(index);
-
-            Console.Clear();
-            Console.WriteLine($"Dog \"{name}\" Removed\n");
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
-            Console.Clear();
-
-            PrintAllDogs();
-
-            SaveDogs();
+            return Dogs[dogIndex - 1];
         }
 
         public void AddOrRemoveDogSelection()
@@ -111,15 +125,7 @@ namespace Doggy_Diary
             Console.WriteLine("\r\nPress any key to return to main menu...");
             Console.ReadKey(true);
         }
-        public void AddEntry(Entry entry)
-        {
 
-            var dog = Dogs.FirstOrDefault(d => d.Name == entry.Dog.Name);
-            if (dog != null)
-            {
-                dog.Entries.Add(entry);
-            }
-        }
 
         public static DogList LoadDogs()
         {
@@ -148,6 +154,8 @@ namespace Doggy_Diary
                 }
             }
         }
+
+
     }
 
 }

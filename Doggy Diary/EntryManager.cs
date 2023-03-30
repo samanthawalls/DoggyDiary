@@ -12,79 +12,65 @@
             }
 
             Console.Clear();
-            Console.WriteLine("Select a dog:");
+            Dog selectedDog = dogList.SelectDog();
 
-            for (int i = 0; i < dogList.Dogs.Count; i++)
+            if (selectedDog != null)
             {
-                Console.WriteLine($"[{i + 1}] {dogList.Dogs[i].Name}");
-            }
-
-            int dogIndex;
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out dogIndex))
+                Console.WriteLine($"Did {selectedDog.Name} pee? (Y/N)");
+                bool isPee = false;
+                while (true)
                 {
-                    if (dogIndex >= 1 && dogIndex <= dogList.Dogs.Count)
+                    string input = Console.ReadLine().ToUpper();
+                    if (input == "Y")
+                    {
+                        isPee = true;
+                        break;
+                    }
+                    else if (input == "N")
                     {
                         break;
                     }
+                    else
+                    {
+                        Console.WriteLine("Invalid Input. Please Enter Y or N.");
+                    }
                 }
 
-                Console.WriteLine("Invalid selection. Please try again.");
+
+                Console.WriteLine($"Did {selectedDog.Name} poo? (Y/N)");
+                bool isPoo = false;
+                while (true)
+                {
+                    string input = Console.ReadLine().ToUpper();
+                    if (input == "Y")
+                    {
+                        isPoo = true;
+                        break;
+                    }
+                    else if (input == "N")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Input. Please Enter Y or N.");
+                    }
+                }
+
+                DateTime now = DateTime.Now;
+                PeePooEntry peePooEntry = new PeePooEntry(now, selectedDog, isPee, isPoo);
+                selectedDog.Entries.Add(peePooEntry);
+                dogList.SaveDogs();
+                peePooEntry.DisplayPeePooEntrySummary();
+
+
+                Console.WriteLine("\r\n Press any key to return to main menu...");
+                Console.ReadKey(true);
             }
-
-            Dog selectedDog = dogList.Dogs[dogIndex - 1];
-
-            Console.WriteLine($"Did {selectedDog.Name} pee? (Y/N)");
-            bool isPee = false;
-            while (true)
+            else
             {
-                string input = Console.ReadLine().ToUpper();
-                if (input == "Y")
-                {
-                    isPee = true;
-                    break;
-                }
-                else if (input == "N")
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Input. Please Enter Y or N.");
-                }
+                return;
             }
-
-
-            Console.WriteLine($"Did {selectedDog.Name} poo? (Y/N)");
-            bool isPoo = false;
-            while (true)
-            {
-                string input = Console.ReadLine().ToUpper();
-                if (input == "Y")
-                {
-                    isPoo = true;
-                    break;
-                }
-                else if (input == "N")
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Input. Please Enter Y or N.");
-                }
-            }
-
-            DateTime now = DateTime.Now;
-            PeePooEntry peePooEntry = new PeePooEntry(now, selectedDog, isPee, isPoo);
-            selectedDog.Entries.Add(peePooEntry);
-            dogList.SaveDogs();
-            peePooEntry.DisplayPeePooEntrySummary();
-
-
-            Console.WriteLine("\r\n Press any key to return to main menu...");
-            Console.ReadKey(true);
         }
 
         public static void ViewAllEntries()
@@ -112,50 +98,35 @@
             }
 
             Console.Clear();
-            Console.WriteLine("Select a dog:");
-
-            for (int i = 0; i < dogList.Dogs.Count; i++)
+            Dog selectedDog = dogList.SelectDog();
+            if (selectedDog != null)
             {
-                Console.WriteLine($"[{i + 1}] {dogList.Dogs[i].Name}");
-            }
+                var entries = from line in File.ReadAllLines("pee_poo_entries.txt")
+                              where line.Contains(selectedDog.Name)
+                              select line;
 
-            int dogIndex;
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out dogIndex))
+                if (!entries.Any())
                 {
-                    if (dogIndex >= 1 && dogIndex <= dogList.Dogs.Count)
+                    Console.WriteLine($"No entries found for {selectedDog.Name}\r\n");
+                }
+                else
+                {
+                    Console.WriteLine($"Viewing Entries for Dog: {selectedDog.Name}");
+                    Console.WriteLine("-----------------------------------------\r\n");
+
+                    foreach (var entry in entries)
                     {
-                        break;
+                        Console.WriteLine(entry);
                     }
                 }
 
-                Console.WriteLine("Invalid selection. Please try again.");
-            }
-
-            Dog selectedDog = dogList.Dogs[dogIndex - 1];
-
-            var entries = from line in File.ReadAllLines("pee_poo_entries.txt")
-                          where line.Contains(selectedDog.Name)
-                          select line;
-
-            if (!entries.Any())
-            {
-                Console.WriteLine($"No entries found for {selectedDog.Name}\r\n");
+                Console.WriteLine("\r\nPress any key to continue...");
+                Console.ReadKey(true);
             }
             else
             {
-                Console.WriteLine($"Viewing Entries for Dog: {selectedDog.Name}");
-                Console.WriteLine("-----------------------------------------\r\n");
-
-                foreach (var entry in entries)
-                {
-                    Console.WriteLine(entry);
-                }
+                return;
             }
-
-            Console.WriteLine("\r\nPress any key to continue...");
-            Console.ReadKey(true);
         }
 
         public static void ViewEntriesTodaysDate()
@@ -184,9 +155,48 @@
 
             Console.WriteLine("\r\nPress any key to continue...");
             Console.ReadKey(true);
+        }
+
+        public static void TimeSinceLastEntry(DogList dogList)
+        {
+            if (!dogList.HasDogs())
+            {
+                Console.WriteLine("There are no dogs on the list. Press any key to continue...");
+                Console.ReadKey(true);
+                return;
+            }
+
+            Console.Clear();
+            Dog selectedDog = dogList.SelectDog();
+            if (selectedDog != null)
+            {
+                Console.WriteLine($"Records for {selectedDog.Name}");
+
+                var entries = from line in File.ReadAllLines("pee_poo_entries.txt")
+                              let parts = line.Split('-')
+                              let entryDate = DateTime.ParseExact(parts[0].Trim() + " " + parts[1].Trim(), "M/d/yyyy h:mm tt", null)
+                              where parts[2].Trim() == selectedDog.Name
+                              orderby entryDate descending
+                              select entryDate;
 
 
-
+                if (!entries.Any())
+                {
+                    Console.WriteLine($"No entries found for {selectedDog.Name}");
+                }
+                else
+                {
+                    DateTime lastEntry = entries.First();
+                    TimeSpan timeSinceLastEntry = DateTime.Now - lastEntry;
+                    Console.WriteLine($"Time since last entry: {timeSinceLastEntry}");
+                }
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

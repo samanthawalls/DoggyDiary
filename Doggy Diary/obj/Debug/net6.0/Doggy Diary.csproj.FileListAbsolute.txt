@@ -13,3 +13,5 @@ C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\refin
 C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.pdb
 C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.genruntimeconfig.cache
 C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\ref\Doggy Diary.dll
+C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Samantha\Desktop\My Repo\Doggy Diary\Doggy Diary\obj\Debug\net6.0\Doggy Diary.csproj.CopyComplete

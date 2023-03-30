@@ -4,11 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
+using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Console.Title = "Doggy Diary";
         DogList dogList = new DogList();
         dogList = DogList.LoadDogs();
 
@@ -16,6 +21,8 @@ class Program
 
         {
             Console.Clear();
+            Console.WriteLine("Welcome to Doggy Diary!");
+            Console.WriteLine("-----------------------\r\n");
             Console.WriteLine("Select an Option:");
             Console.WriteLine("[1] Make a Pee/Poo Entry");
             Console.WriteLine("[2] Check How Long Since Last Pee/Poo");
@@ -32,7 +39,7 @@ class Program
                     EntryManager.MakePeePooEntry(dogList);
                     break;
                 case "2":
-                   // need code for this
+                    EntryManager.TimeSinceLastEntry(dogList);
                     break;
                 case "3":
                     EntryManager.ViewEntriesTodaysDate();
@@ -43,13 +50,14 @@ class Program
                 case "5":
                     dogList.AddOrRemoveDogSelection();
                     break;
-                case "6":  
+                case "6":
                     Environment.Exit(0);
                     break;
 
                 default:
-                    Console.WriteLine("Invalid option. Press any key to continue...");
-                    Console.ReadKey(true);
+                    Console.WriteLine("Invalid option. Press Enter to try again.");
+                    Console.ReadLine();
+                    Console.Clear();
                     break;
             }
         }
