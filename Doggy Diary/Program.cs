@@ -18,9 +18,11 @@ class Program
             Console.Clear();
             Console.WriteLine("Select an Option:");
             Console.WriteLine("[1] Make a Pee/Poo Entry");
-            Console.WriteLine("[2] Review Previous Entries");
-            Console.WriteLine("[3] Add or Remove a Dog");
-            Console.WriteLine("[4] EXIT");
+            Console.WriteLine("[2] Check How Long Since Last Pee/Poo");
+            Console.WriteLine("[3] View Today's Entries");
+            Console.WriteLine("[4] View Entries by Dog Name");
+            Console.WriteLine("[5] View Dog List & Add or Remove Dogs");
+            Console.WriteLine("[6] EXIT");
 
             string input = Console.ReadLine();
 
@@ -29,13 +31,19 @@ class Program
                 case "1":
                     EntryManager.MakePeePooEntry(dogList);
                     break;
-                case "2":                    
-                    EntryManager.ViewAllEntries();
+                case "2":
+                   // need code for this
                     break;
                 case "3":
-                    dogList.AddOrRemoveDogSelection();
+                    EntryManager.ViewEntriesTodaysDate();
                     break;
                 case "4":
+                    EntryManager.ViewEntriesByDog(dogList);
+                    break;
+                case "5":
+                    dogList.AddOrRemoveDogSelection();
+                    break;
+                case "6":  
                     Environment.Exit(0);
                     break;
 

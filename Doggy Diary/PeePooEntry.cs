@@ -20,7 +20,7 @@ namespace Doggy_Diary
             SavePeePooEntriesToFile();
         }
 
-        public override void DisplayPeePooEntry()
+        public override void DisplayPeePooEntrySummary()
         {
             Console.WriteLine($"Entry for {Dog.Name} on {EntryDateTime.ToShortDateString()} @ {EntryDateTime.ToShortTimeString()}");
             if (IsPee && IsPoo)
@@ -39,9 +39,9 @@ namespace Doggy_Diary
         private void SavePeePooEntriesToFile()
         {
             string fileName = "pee_poo_entries.txt";
-            using (StreamWriter sr = new StreamWriter (fileName, true)) 
+            using (StreamWriter sr = new StreamWriter(fileName, true))
             {
-                string entryString = $"{EntryDateTime.ToShortDateString()} {EntryDateTime.ToShortTimeString()} - {Dog.Name} - {(IsPee ? "Pee" : "")}{(IsPoo ? "Poo" : "")}";
+                string entryString = $"{EntryDateTime.ToShortDateString()} {EntryDateTime.ToShortTimeString()} - {Dog.Name} - {(IsPee ? "Pee " : "")}{(IsPoo ? "Poo" : "")}";
                 sr.WriteLine(entryString);
             }
         }
