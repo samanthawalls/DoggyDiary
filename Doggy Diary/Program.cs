@@ -25,11 +25,11 @@ class Program
             Console.WriteLine("Welcome to Doggy Diary!");
             Console.WriteLine("-----------------------\r\n");
             Console.WriteLine("Select an Option:");
-            Console.WriteLine("[1] Make a Pee/Poo Entry");
-            Console.WriteLine("[2] View Today's Entries For All Dogs");
-            Console.WriteLine("[3] Filter Entries by Dog Name");
-            Console.WriteLine("[4] View All Previous Entries");
-            Console.WriteLine("[5] Add or Remove Dogs");
+            Console.WriteLine("[1] Make A Potty Entry");
+            Console.WriteLine("[2] View Today's Entries");
+            Console.WriteLine("[3] View Entries for Specific Dog");
+            Console.WriteLine("[4] View Or Delete All Previous Entries");
+            Console.WriteLine("[5] Add or Remove Dogs to List");
             Console.WriteLine("[6] EXIT");
 
             string input = Console.ReadLine();

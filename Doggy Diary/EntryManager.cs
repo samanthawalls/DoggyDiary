@@ -81,15 +81,48 @@ namespace Doggy_Diary
             }
         }
 
+        public static void DeleteAllEntries()
+        {
+            Console.WriteLine("Are you SURE you want to delete all entries? (Y/N)");
+            string input = Console.ReadLine().ToUpper();
+            if (input == "Y")
+            {
+                File.WriteAllText("pee_poo_entries.txt", "");
+                Console.WriteLine("All entries deleted. \r\n");
+                
+            }
+            else if (input == "N")
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input. Please Enter Y or N");
+            }
+        }
+        
         public static void ViewAllEntries()
         {
             Console.WriteLine("Viewing All Entries:");
 
             string entries = File.ReadAllText("pee_poo_entries.txt");
             Console.WriteLine(entries);
-           
+            if (string.IsNullOrEmpty(entries))
+            {
+                Console.WriteLine("There are no entries to display");
+            }
 
-            Console.WriteLine("Press any key to continue...");
+            else
+            {
+                Console.WriteLine("Would you like to delete all entries? (Y/N)");
+                string input = Console.ReadLine().ToUpper();
+                if (input == "Y")
+                {
+                    DeleteAllEntries();
+
+                }
+            }
+            Console.WriteLine("Pres any key to continue...");
             Console.ReadKey(true);
         }
         public static void ViewEntriesByDog(DogList dogList)

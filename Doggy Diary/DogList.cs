@@ -118,7 +118,9 @@ namespace Doggy_Diary
             Console.WriteLine("-------------------------");
             Console.WriteLine("Do you want to add or remove a dog? Select an option below:");
             Console.WriteLine("[1] Add A Dog");
-            Console.WriteLine("[2] Remove A Dog");
+            Console.WriteLine("[2] Remove A Dog\r\n");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Or Enter 0 to Return to Main Menu");
             string input = Console.ReadLine().ToLower();
 
             if (input == "1")
