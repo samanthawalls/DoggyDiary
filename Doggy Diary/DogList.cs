@@ -6,40 +6,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Doggy_Diary
 {
     public class DogList
     {
+        
         public List<Dog> Dogs { get; set; }
         private string fileName = "doglist.txt";
+       
 
         public DogList()
         {
             Dogs = new List<Dog>();
-
         }
 
-
-
+        
         public void AddDog()
         {
 
             Console.Clear();
             Console.WriteLine("Enter the dog's name you would like to add:");
-            String name = Console.ReadLine();
+            string name = Console.ReadLine();
 
-            Dogs.Add(new Dog(name));
+            if (name.Length == 0)
+            {
+                Console.WriteLine("Name Cannot Be Empty");
+            }
+            else
+            {
+                name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
 
-            Console.Clear();
-            Console.WriteLine($"New Dog \"{name}\" Added\r\n");
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey(true);
-            Console.Clear();
+                Dogs.Add(new Dog(name));
 
-            PrintAllDogs();
+                Console.Clear();
+                Console.WriteLine($"New Dog \"{name}\" Added\r\n");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey(true);
+                Console.Clear();
 
-            SaveDogs();
+                PrintAllDogs();
+
+                SaveDogs();
+            }
         }
 
         public bool HasDogs()
@@ -56,7 +67,7 @@ namespace Doggy_Diary
             {
                 Dogs.Remove(selectedDog);
                 Console.Clear();
-                Console.WriteLine($"Dog \"{selectedDog.Name}\"u Removed\n");
+                Console.WriteLine($"Dog \"{selectedDog.Name}\" Removed\n");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey(true);
                 Console.Clear();
@@ -97,14 +108,24 @@ namespace Doggy_Diary
         public void AddOrRemoveDogSelection()
         {
             Console.Clear();
-            Console.WriteLine("Do you want to add or remove a dog? Enter \"A\" to add or \"R\" to remove:");
+
+            Console.WriteLine("Current Dogs In List:");
+            for (int i = 0; i < Dogs.Count; i++)
+            {
+                Console.WriteLine($"[{i + 1}] {Dogs[i].Name}");
+            }
+            Console.WriteLine("\r\n");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Do you want to add or remove a dog? Select an option below:");
+            Console.WriteLine("[1] Add A Dog");
+            Console.WriteLine("[2] Remove A Dog");
             string input = Console.ReadLine().ToLower();
 
-            if (input == "a")
+            if (input == "1")
             {
                 AddDog();
             }
-            else if (input == "r")
+            else if (input == "2")
             {
                 RemoveDog();
             }
@@ -130,7 +151,7 @@ namespace Doggy_Diary
         public static DogList LoadDogs()
         {
             DogList dogList = new DogList();
-            if (File.Exists(dogList.fileName))
+           if (File.Exists(dogList.fileName))
             {
                 dogList.Dogs.Clear();
                 using (StreamReader sr = new StreamReader(dogList.fileName))
@@ -144,13 +165,14 @@ namespace Doggy_Diary
             }
             return dogList;
         }
+        
         public void SaveDogs()
         {
-            using (StreamWriter writer = new StreamWriter(fileName, false))
+           using (StreamWriter sw = new StreamWriter(fileName, false))
             {
                 foreach (Dog dog in Dogs)
                 {
-                    writer.WriteLine(dog.Name);
+                    sw.WriteLine(dog.Name);
                 }
             }
         }

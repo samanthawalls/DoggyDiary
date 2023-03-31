@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Doggy_Diary
 {
     public class PeePooEntry : Entry
     {
-        
+
         public bool IsPee { get; set; }
         public bool IsPoo { get; set; }
-        
+
 
         public PeePooEntry(DateTime entryDateTime, Dog dog, bool isPee, bool isPoo) : base(entryDateTime, dog)
         {
@@ -37,13 +38,14 @@ namespace Doggy_Diary
                 Console.WriteLine(" - Poo Recorded!");
             }
         }
-        private void SavePeePooEntriesToFile()
+
+        public void SavePeePooEntriesToFile()
         {
             string fileName = "pee_poo_entries.txt";
-            using (StreamWriter sr = new StreamWriter(fileName, true))
+            using (StreamWriter sw = new StreamWriter(fileName, true))
             {
-                string entryString = $"{EntryDateTime.ToShortDateString()} {EntryDateTime.ToShortTimeString()} - {Dog.Name} - {(IsPee ? "Pee " : "")}{(IsPoo ? "Poo" : "")}";
-                sr.WriteLine(entryString);
+                string entryString = $"{EntryDateTime.ToShortDateString()} - {EntryDateTime.ToShortTimeString()} - {Dog.Name} - {(IsPee ? "Pee " : "")}{(IsPoo ? "Poo" : "")}";
+                sw.WriteLine(entryString);
             }
         }
     }

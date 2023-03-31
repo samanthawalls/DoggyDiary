@@ -11,7 +11,8 @@ namespace Doggy_Diary
     {
         public DateTime EntryDateTime { get; set; }
         public Dog Dog { get; set; }
-        
+
+
         public Entry(DateTime entryDateTime, Dog dog)
         {
             EntryDateTime= entryDateTime;

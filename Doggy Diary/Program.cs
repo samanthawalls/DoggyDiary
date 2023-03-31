@@ -14,8 +14,9 @@ class Program
     static void Main(string[] args)
     {
         Console.Title = "Doggy Diary";
-        DogList dogList = new DogList();
+        DogList dogList = DogList.LoadDogs();
         dogList = DogList.LoadDogs();
+
 
         while (true)
 
@@ -25,10 +26,10 @@ class Program
             Console.WriteLine("-----------------------\r\n");
             Console.WriteLine("Select an Option:");
             Console.WriteLine("[1] Make a Pee/Poo Entry");
-            Console.WriteLine("[2] Check How Long Since Last Pee/Poo");
-            Console.WriteLine("[3] View Today's Entries");
-            Console.WriteLine("[4] View Entries by Dog Name");
-            Console.WriteLine("[5] View Dog List & Add or Remove Dogs");
+            Console.WriteLine("[2] View Today's Entries For All Dogs");
+            Console.WriteLine("[3] Filter Entries by Dog Name");
+            Console.WriteLine("[4] View All Previous Entries");
+            Console.WriteLine("[5] Add or Remove Dogs");
             Console.WriteLine("[6] EXIT");
 
             string input = Console.ReadLine();
@@ -39,13 +40,13 @@ class Program
                     EntryManager.MakePeePooEntry(dogList);
                     break;
                 case "2":
-                    EntryManager.TimeSinceLastEntry(dogList);
-                    break;
-                case "3":
                     EntryManager.ViewEntriesTodaysDate();
                     break;
-                case "4":
+                case "3":
                     EntryManager.ViewEntriesByDog(dogList);
+                    break;
+                case "4":
+                    EntryManager.ViewAllEntries();
                     break;
                 case "5":
                     dogList.AddOrRemoveDogSelection();

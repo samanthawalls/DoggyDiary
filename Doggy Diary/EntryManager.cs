@@ -1,7 +1,14 @@
-﻿namespace Doggy_Diary
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+
+namespace Doggy_Diary
 {
     public class EntryManager
     {
+        private static List<Entry> entries;
+
         public static void MakePeePooEntry(DogList dogList)
         {
             if (!dogList.HasDogs())
@@ -64,6 +71,7 @@
                 peePooEntry.DisplayPeePooEntrySummary();
 
 
+
                 Console.WriteLine("\r\n Press any key to return to main menu...");
                 Console.ReadKey(true);
             }
@@ -77,13 +85,9 @@
         {
             Console.WriteLine("Viewing All Entries:");
 
-            var entries = File.ReadAllLines("pee_poo_entries.txt");
-
-
-            foreach(var entry in entries)
-            {
-                Console.WriteLine(entry);
-            }
+            string entries = File.ReadAllText("pee_poo_entries.txt");
+            Console.WriteLine(entries);
+           
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
@@ -132,10 +136,10 @@
         public static void ViewEntriesTodaysDate()
         {
             DateTime today = DateTime.Today;
+            string todayString = today.ToString("M/d/yyyy");
 
             var entries = from line in File.ReadAllLines("pee_poo_entries.txt")
-                          let entryDate = DateTime.ParseExact(line.Split('-')[0].Trim(), "M/d/yyyy h:mm tt", null)
-                          where entryDate.Date == today
+                          where line.StartsWith(todayString)
                           select line;
 
             if (!entries.Any())
@@ -156,47 +160,6 @@
             Console.WriteLine("\r\nPress any key to continue...");
             Console.ReadKey(true);
         }
-
-        public static void TimeSinceLastEntry(DogList dogList)
-        {
-            if (!dogList.HasDogs())
-            {
-                Console.WriteLine("There are no dogs on the list. Press any key to continue...");
-                Console.ReadKey(true);
-                return;
-            }
-
-            Console.Clear();
-            Dog selectedDog = dogList.SelectDog();
-            if (selectedDog != null)
-            {
-                Console.WriteLine($"Records for {selectedDog.Name}");
-
-                var entries = from line in File.ReadAllLines("pee_poo_entries.txt")
-                              let parts = line.Split('-')
-                              let entryDate = DateTime.ParseExact(parts[0].Trim() + " " + parts[1].Trim(), "M/d/yyyy h:mm tt", null)
-                              where parts[2].Trim() == selectedDog.Name
-                              orderby entryDate descending
-                              select entryDate;
-
-
-                if (!entries.Any())
-                {
-                    Console.WriteLine($"No entries found for {selectedDog.Name}");
-                }
-                else
-                {
-                    DateTime lastEntry = entries.First();
-                    TimeSpan timeSinceLastEntry = DateTime.Now - lastEntry;
-                    Console.WriteLine($"Time since last entry: {timeSinceLastEntry}");
-                }
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
-            }
-            else
-            {
-                return;
-            }
-        }
+       
     }
 }
