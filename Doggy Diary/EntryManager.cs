@@ -122,7 +122,7 @@ namespace Doggy_Diary
 
                 }
             }
-            Console.WriteLine("Pres any key to continue...");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
         }
         public static void ViewEntriesByDog(DogList dogList)
